@@ -17,6 +17,14 @@ Futher documentation of the API can be found at their `API Documentation Page`_.
 .. _openapi spec: https://fdc.nal.usda.gov/api-guide.html#bkmk-8
 .. _API Documentation Page: https://fdc.nal.usda.gov/data-documentation.html
 
+------------------------
+Non-Quicklisp Dependency
+------------------------
+
+This is built using a very WIP `openapi library`_ that generates code based on openapi schemas.  You'll need to make that library available to asdf to load this one.  This library will improve as that one does.
+
+.. _openapi library: https://gitlab.com/fisxoj/openapi
+
 -------
 Example
 -------
