@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link rel="stylesheet" href="default.css" type="text/css" />
+<title>food-data</title>
+<meta name="Author" content="Matt Novenstern <
+
+fisxoj@gmail.com
+
+>" />
+</head>
+<body>
+<div id="id1" class="document"><h1 class="title">food-data</h1>
+<table class="docinfo" frame="void" rules="none"><col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr><th class="docinfo-name">Author</th><td>Matt Novenstern &lt;<a class="reference" href="mailto:fisxoj@gmail.com"><span>fisxoj@gmail.com</span></a>&gt;</td></tr><tr><th class="docinfo-name">Version</th><td>0.0.1</td></tr><tr class="field"><th colspan="1" class="docinfo-name">license:</th><td class="field-body">MIT</td>
+</tr>
+<tr class="field"><th colspan="1" class="docinfo-name">homepage:</th><td class="field-body"><a class="reference" href="https://fisxoj.github.io/food-data/"><span>https://fisxoj.github.io/food-data/</span></a></td>
+</tr>
+</tbody>
+</table>
+<div class="image image-reference"><a class="reference" href="CODE_OF_CONDUCT.md"><span><img src="https://img.shields.io/badge/Contributor%20Covenant-v1.4%20adopted-ff69b4.svg" alt="Contributor Covenant" /></span></a></div>
+<table class="field-list" frame="void" rules="none"><col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th colspan="1" class="field-name">Source:</th><td class="field-body"><a class="reference" href="https://github.com/fisxoj/food-data"><span>https://github.com/fisxoj/food-data</span></a></td>
+</tr>
+<tr class="field"><th colspan="1" class="field-name">Docs:</th><td class="field-body"><a class="reference" href="https://fisxoj.github.io/food-data/"><span>https://fisxoj.github.io/food-data/</span></a></td>
+</tr>
+</tbody>
+</table>
+<p>food-data is a common lisp client for the <a class="reference" href="https://fdc.nal.usda.gov/api-guide.html"><span>Food Data Central API</span></a> provided by the US Department of Agriculture.  It's generated automatically using the <a class="reference" href="https://fdc.nal.usda.gov/api-guide.html#bkmk-8"><span>openapi spec</span></a> that they provide.</p>
+<p>In their words: "The FoodData Central API provides REST access to FoodData Central (FDC). It is intended primarily to assist application developers wishing to incorporate nutrient data into their applications or websites."</p>
+<p>Futher documentation of the API can be found at their <a class="reference" href="https://fdc.nal.usda.gov/data-documentation.html"><span>API Documentation Page</span></a>.</p>
+<div id="non-quicklisp-dependency" class="section"><h2><a name="non-quicklisp-dependency">Non-Quicklisp Dependency</a></h2>
+<p>This is built using a very WIP <a class="reference" href="https://gitlab.com/fisxoj/openapi"><span>openapi library</span></a> that generates code based on openapi schemas.  You'll need to make that library available to asdf to load this one.  This library will improve as that one does.</p>
+</div>
+<div id="example" class="section"><h2><a name="example">Example</a></h2>
+<p>To use the library, you must set an api key, which you can <a class="reference" href="https://fdc.nal.usda.gov/api-key-signup.html"><span>sign up for here</span></a>.  Then, you must set <a class="reference ref-variable" href="food-data.html#variable-%2Aapi-key%2A"><span class="ref-variable">food-data:*api-key*</span></a> so it will be used with all requests.:</p>
+<pre class="literal-block">
+(setf food-data:*api-key* "My long api key string")
+</pre><p>Then, you should be able to make requests, like so::</p>
+<pre class="literal-block">
+(food-data:get-food 497965 "abridged" nil)
+</pre><p>Returns:</p>
+<pre class="literal-block">
+#S(OPENAPI/CLIENT:API-RESPONSE
+:STATUS 200
+:CONTENT-TYPE NIL
+:BODY "{\"fdcId\":497965,\"description\":\"WISH-BONE, LIGHT HONEY DIJON DRESSING\",\"dataType\":\"Branded\",\"publicationDate\":\"2019-04-01\",\"brandOwner\":\"Lipton\",\"gtinUpc\":\"041000005466\",\"foodNutrients\":[{\"number\":\"291\",\"name\":\"Fiber, total dietary\",\"amount\":0E-8,\"unitName\":\"G\",\"derivationCode\":\"LCCD\",\"derivationDescription\":\"Calculated from a daily value percentage per serving size measure\"},{\"number\":\"301\",\"name\":\"Calcium, Ca\",\"amount\":0E-8,\"unitName\":\"MG\",\"derivationCode\":\"LCCD\",\"derivationDescription\":\"Calculated from a daily value percentage per serving size measure\"},{\"number\":\"303\",\"name\":\"Iron, Fe\",\"amount\":0E-8,\"unitName\":\"MG\",\"derivationCode\":\"LCCD\",\"derivationDescription\":\"Calculated from a daily value percentage per serving size measure\"},{\"number\":\"318\",\"name\":\"Vitamin A, IU\",\"amount\":1333.00000000,\"unitName\":\"IU\",\"derivationCode\":\"LCCD\",\"derivationDescription\":\"Calculated from a daily value percentage per serving size measure\"},{\"number\":\"401\",\"name\":\"Vitamin C, total ascorbic acid\",\"amount\":0E-8,\"unitName\":\"MG\",\"derivationCode\":\"LCCD\",\"derivationDescription\":\"Calculated from a daily value percentage per serving size measure\"},{\"number\":\"203\",\"name\":\"Protein\",\"amount\":0E-8,\"unitName\":\"G\",\"derivationCode\":\"LCCS\",\"derivationDescription\":\"Calculated from value per serving size measure\"},{\"number\":\"204\",\"name\":\"Total lipid (fat)\",\"amount\":16.67000000,\"unitName\":\"G\",\"derivationCode\":\"LCCS\",\"derivationDescription\":\"Calculated from value per serving size measure\"},{\"number\":\"205\",\"name\":\"Carbohydrate, by difference\",\"amount\":20.00000000,\"unitName\":\"G\",\"derivationCode\":\"LCCS\",\"derivationDescription\":\"Calculated from value per serving size measure\"},{\"number\":\"208\",\"name\":\"Energy\",\"amount\":233.00000000,\"unitName\":\"KCAL\",\"derivationCode\":\"LCCS\",\"derivationDescription\":\"Calculated from value per serving size measure\"},{\"number\":\"269\",\"name\":\"Sugars, total including NLEA\",\"amount\":13.33000000,\"unitName\":\"G\",\"derivationCode\":\"LCCS\",\"derivationDescription\":\"Calculated from value per serving size measure\"},{\"number\":\"307\",\"name\":\"Sodium, Na\",\"amount\":800.00000000,\"unitName\":\"MG\",\"derivationCode\":\"LCCS\",\"derivationDescription\":\"Calculated from value per serving size measure\"},{\"number\":\"601\",\"name\":\"Cholesterol\",\"amount\":17.00000000,\"unitName\":\"MG\",\"derivationCode\":\"LCCS\",\"derivationDescription\":\"Calculated from value per serving size measure\"},{\"number\":\"605\",\"name\":\"Fatty acids, total trans\",\"amount\":0E-8,\"unitName\":\"G\",\"derivationCode\":\"LCCS\",\"derivationDescription\":\"Calculated from value per serving size measure\"},{\"number\":\"606\",\"name\":\"Fatty acids, total saturated\",\"amount\":3.33000000,\"unitName\":\"G\",\"derivationCode\":\"LCCS\",\"derivationDescription\":\"Calculated from value per serving size measure\"},{\"number\":\"645\",\"name\":\"Fatty acids, total monounsaturated\",\"amount\":3.33000000,\"unitName\":\"G\",\"derivationCode\":\"LCCS\",\"derivationDescription\":\"Calculated from value per serving size measure\"},{\"number\":\"646\",\"name\":\"Fatty acids, total polyunsaturated\",\"amount\":10.00000000,\"unitName\":\"G\",\"derivationCode\":\"LCCS\",\"derivationDescription\":\"Calculated from value per serving size measure\"}]}"
+:HEADERS #&lt;HASH-TABLE :TEST EQUAL :COUNT 15 {100A28F563}&gt;)
+
+
+</pre></div>
+<div id="packages" class="section"><h2><a name="packages">Packages</a></h2>
+<ul>
+<li><p class="first last"><a class="reference" href="food-data.html"><span>food-data</span></a></p>
+</li>
+</ul>
+</div>
+<hr class ="docutils footer" /><div class="footer">Generated on : Tue, 26 May 2020 14:33:09 .
+</div>
+</div>
+</body>
+</html>
