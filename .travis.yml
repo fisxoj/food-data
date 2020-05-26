@@ -13,7 +13,7 @@ jobs:
       stage: deploy
       before_script:
         - docker pull quay.io/fisxoj/coo:master
-        - git clone git@gitlab.com:/fisxoj/openapi
+        - git clone https://gitlab.com/fisxoj/openapi.git
         - apt-get install libyaml-0-2
       script: |
         docker run --rm -it \
