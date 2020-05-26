@@ -14,7 +14,7 @@ jobs:
       before_script:
         - docker pull quay.io/fisxoj/coo:master
         - git clone https://gitlab.com/fisxoj/openapi.git
-        - apt-get install libyaml-0-2
+        - sudo apt-get install libyaml-0-2
       script: |
         docker run --rm -it \
                    -v $PWD:/work:Z \
