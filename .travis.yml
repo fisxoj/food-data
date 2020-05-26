@@ -14,8 +14,13 @@ jobs:
       before_script:
         - docker pull quay.io/fisxoj/coo:master
         - git clone git@gitlab.com:/fisxoj/openapi
-      script:
-        - docker run --rm -it -v $PWD:/work:Z -v $PWD/openapi:/quicklisp/local-projects/openapi:Z quay.io/fisxoj/coo:master
+        - apt-get install libyaml-0-2
+      script: |
+        docker run --rm -it \
+                   -v $PWD:/work:Z \
+                   -v $PWD/openapi:/quicklisp/local-projects/openapi:Z \
+                   -v /usr/lib/x86_64-linux-gnu/libyaml-0.so.2:/usr/lib/x86_64-linux-gnu/libyaml-0.so.2 \
+                   quay.io/fisxoj/coo:master
       deploy:
         provider: pages:git
         edge: true
